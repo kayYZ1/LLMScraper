@@ -4,6 +4,8 @@ import { ChangeEvent, Fragment, KeyboardEvent } from "react";
 
 //Server calls
 import scrapeSite from "~/.server/scrape.server";
+import Dropdown from "~/components/dropdown";
+import Textarea from "~/components/textarea";
 
 interface ActionData {
   content: string;
@@ -58,15 +60,14 @@ export default function Index() {
             duration-200 ease-in-out"
         />
       </Form>
-      <div>
-        {data?.content && (
+      <div className="py-2">
+        {
+          data &&
           <div>
-            <h2>Scraped Content</h2>
-            <p>
-              {data.content}
-            </p>
+            <Dropdown content={data.content} />
+            <Textarea />
           </div>
-        )}
+        }
       </div>
     </Fragment>
   );
