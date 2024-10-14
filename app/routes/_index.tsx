@@ -2,11 +2,10 @@ import { ActionFunction } from "@remix-run/node";
 import { Form, json, useActionData, useSearchParams } from "@remix-run/react";
 import { ChangeEvent, Fragment, KeyboardEvent } from "react";
 
-//Server calls
 import scrapeSite from "~/.server/scrape.server";
+
 import Dropdown from "~/components/dropdown";
 import Textarea from "~/components/textarea";
-
 interface ActionData {
   content: string;
 }

@@ -10,7 +10,10 @@ const scrapeSite = async (website: string) => {
 	// Navigate the page to a URL.
 	await page.goto(website);
 
-	const content = await page.content();
+	const content = await page.evaluate(() => {
+		const body = document.querySelector('body');
+		return body ? body.innerHTML : '';
+	});
 
 	await page.close();
 	await browser.close();
