@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import Navigation from "./components/nav";
 
 import "./tailwind.css";
 
@@ -41,5 +42,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <div className="min-h-screen flex flex-col items-center p-8">
+      <div className="w-full max-w-lg">
+        <Navigation />
+        <div className="py-4 px-1">
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
 }
