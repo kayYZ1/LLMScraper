@@ -5,14 +5,14 @@ import { ChangeEvent, Fragment, KeyboardEvent } from "react";
 import scrapeSite from "~/.server/scrape.server";
 
 import Dropdown from "~/components/dropdown";
-import Textarea from "~/components/textarea";
+import LLMResponse from "../components/textarea";
 interface ActionData {
   content: string;
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const website = formData.get("query");
+  const website = formData.get("url");
 
   if (!website || typeof website !== "string") {
     return json<ActionData>({
@@ -27,18 +27,18 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Index() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("query") || "";
+  const url = searchParams.get("url") || "";
 
   const data = useActionData<ActionData>();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchParams({
-      query: e.target.value
+      url: e.target.value
     });
   }
 
   const handleKeyPress = async (event: KeyboardEvent) => {
-    if (event.key === "Enter" && query.length > 5) {
+    if (event.key === "Enter" && url.length > 5) {
       event.preventDefault();
       (event.target as HTMLFormElement).closest("form")?.submit();
     }
@@ -49,8 +49,8 @@ export default function Index() {
       <Form method="post">
         <input
           type="text"
-          name="query"
-          value={query}
+          name="url"
+          value={url}
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
           placeholder="Website to scrape"
@@ -64,7 +64,7 @@ export default function Index() {
           data &&
           <div>
             <Dropdown content={data.content} />
-            <Textarea />
+            <LLMResponse content={data.content} />
           </div>
         }
       </div>
