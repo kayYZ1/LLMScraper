@@ -1,40 +1,54 @@
-# Welcome to Remix!
 
-- 📖 [Remix docs](https://remix.run/docs)
+# LLM Scraper
 
-## Development
+Project allows user to scrape dom content of the website and then allow LLM model to parse the content and return desired outcome.
 
-Run the dev server:
+## Features
 
-```shellscript
-npm run dev
+- Scrape and parse website content (does not work for SPA)
+- History (soon)
+
+
+## Tech Stack
+
+**Client:** Remix, React, Typescript, TailwindCSS, OpenAPI
+
+**Server:** Remix (+NodeJS), Puppeteer
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`OPEN_ROUTER`
+
+or any other AI api provider in my case i used: https://www.openrouter.ai
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/kayYZ1/LLMScraper.git
 ```
 
-## Deployment
+Go to the project directory
 
-First, build your app for production:
-
-```sh
-npm run build
+```bash
+  cd LLMScraper
 ```
 
-Then run the app in production mode:
+Install dependencies
 
-```sh
-npm start
+```bash
+  pnpm install
 ```
 
-Now you'll need to pick a host to deploy it to.
+Start the server
 
-### DIY
+```bash
+  pnpm dev
+```
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
 
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
