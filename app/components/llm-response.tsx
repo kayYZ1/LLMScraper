@@ -1,9 +1,13 @@
 import { Fragment, ChangeEvent, useState } from "react";
 import { Form } from "@remix-run/react";
-import LLM from "~/utils/llm";
+import { useRouteLoaderData } from '@remix-run/react';
+
+import type { loader } from "~/root"
 import { ChatCompletionMessage } from "openai/resources/index.mjs";
+import LLM from "~/utils/llm";
 
 export default function LLMResponse({ content }: { content: string }) {
+  const loadEnvVar = useRouteLoaderData<typeof loader>("root")!;
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState<ChatCompletionMessage>();
   const [loading, setLoading] = useState(false)
@@ -16,7 +20,7 @@ export default function LLMResponse({ content }: { content: string }) {
     setLoading(true)
     try {
       const res = await LLM({
-        message: prompt, content
+        message: prompt, content, loadEnvVar
       });
       setResponse(res);
     } catch (error) {

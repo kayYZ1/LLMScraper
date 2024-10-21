@@ -4,8 +4,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import Navigation from "./components/nav";
 
 import "./tailwind.css";
@@ -23,33 +25,32 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export async function loader() {
+  return json({
+    ENV: {
+      OPEN_ROUTER: process.env.OPEN_ROUTER,
+    },
+  });
+}
+
+export default function Root() {
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
+        <div className="min-h-screen flex flex-col items-center p-8">
+          <div className="w-full max-w-lg">
+            <Navigation />
+            <div className="py-4 px-1">
+              <Outlet />
+            </div>
+          </div>
+        </div>
         <Scripts />
       </body>
     </html>
-  );
-}
-
-export default function App() {
-  return (
-    <div className="min-h-screen flex flex-col items-center p-8">
-      <div className="w-full max-w-lg">
-        <Navigation />
-        <div className="py-4 px-1">
-          <Outlet />
-        </div>
-      </div>
-    </div>
   );
 }

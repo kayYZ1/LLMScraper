@@ -5,7 +5,7 @@ import { ChangeEvent, Fragment, KeyboardEvent } from "react";
 import scrapeSite from "~/.server/scrape.server";
 
 import Dropdown from "~/components/dropdown";
-import LLMResponse from "../components/textarea";
+import LLMResponse from "../components/llm-response";
 interface ActionData {
   content: string;
 }
